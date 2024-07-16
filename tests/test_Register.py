@@ -1,11 +1,9 @@
 import random
 import time
 from datetime import datetime
-
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
 from pages.HomePage import HomePage
 from pages.RegisterPage import RegisterPage
 
@@ -15,49 +13,47 @@ class TestRegister:
     def test_register_with_mandatory_fields(self):
         home_page = HomePage(self.driver)
         home_page.click_on_my_account_drop_down_menu()
-        home_page.select_register_option()
+        register_page = home_page.select_register_option()
+        unique_number = str(random.randint(1111111111, 9999999999))
+        register_page.register_an_account("pyTest","Framework",f"new{self.generate_random_email_with_timestamp()}@gmail.com",unique_number,"Pass@1234","Pass@1234","no","select")
 
-        register_page = RegisterPage(self.driver)
-        register_page.enter_first_name("pyTest")
+        '''register_page.enter_first_name("pyTest")
         register_page.enter_last_name("Framework")
         register_page.enter_email(f"new{self.generate_random_email_with_timestamp()}@gmail.com")
-        unique_number = str(random.randint(1111111111,9999999999))
         register_page.enter_phone_number(unique_number)
         register_page.enter_password("Pass@1234")
         register_page.enter_confirm_password("Pass@1234")
         register_page.click_terms_and_condition_check_box()
         time.sleep(3)
-        register_page.click_on_submit_button()
+        register_page.click_on_submit_button()'''
         expt_text = "Your Account Has Been Created!"
         assert register_page.verify_account_creation(expt_text)
 
     def test_register_with_all_fields(self):
         home_page = HomePage(self.driver)
         home_page.click_on_my_account_drop_down_menu()
-        home_page.select_register_option()
+        register_page = home_page.select_register_option()
+        unique_number = str(random.randint(1111111111, 9999999999))
+        register_page.register_an_account("pyTest","Framework",f"new{self.generate_random_email_with_timestamp()}@gmail.com",unique_number,"Pass@1234","Pass@1234","yes","select")
 
-        register_page = RegisterPage(self.driver)
-        register_page.enter_first_name("pyTest")
+        '''register_page.enter_first_name("pyTest")
         register_page.enter_last_name("Framework")
         register_page.enter_email(f"new{self.generate_random_email_with_timestamp()}@gmail.com")
-        unique_number = str(random.randint(1111111111, 9999999999))
         register_page.enter_phone_number(unique_number)
         register_page.enter_password("Pass@1234")
         register_page.enter_confirm_password("Pass@1234")
         register_page.click_on_newsletter_yes_option()
         register_page.click_terms_and_condition_check_box()
         time.sleep(3)
-        register_page.click_on_submit_button()
+        register_page.click_on_submit_button()'''
         expt_text = "Your Account Has Been Created!"
         assert register_page.verify_account_creation(expt_text)
-
 
     def test_register_with_duplicate_emailId(self):
         home_page = HomePage(self.driver)
         home_page.click_on_my_account_drop_down_menu()
-        home_page.select_register_option()
+        register_page = home_page.select_register_option()
 
-        register_page = RegisterPage(self.driver)
         register_page.enter_first_name("pyTest")
         register_page.enter_last_name("Framework")
         register_page.enter_email("cucu@gmail.com")
@@ -75,9 +71,8 @@ class TestRegister:
     def test_register_empty_fields(self):
         home_page = HomePage(self.driver)
         home_page.click_on_my_account_drop_down_menu()
-        home_page.select_register_option()
+        register_page = home_page.select_register_option()
 
-        register_page = RegisterPage(self.driver)
         register_page.enter_first_name("")
         register_page.enter_last_name("")
         register_page.enter_email("")
