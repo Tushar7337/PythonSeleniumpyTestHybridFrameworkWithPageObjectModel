@@ -2,10 +2,8 @@ import random
 import time
 from datetime import datetime
 import pytest
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from pages.HomePage import HomePage
-from pages.RegisterPage import RegisterPage
+from utilities import RandomDataGenerator
 
 
 @pytest.mark.usefixtures("setup_and_teardown")
@@ -14,18 +12,8 @@ class TestRegister:
         home_page = HomePage(self.driver)
         home_page.click_on_my_account_drop_down_menu()
         register_page = home_page.select_register_option()
-        unique_number = str(random.randint(1111111111, 9999999999))
-        register_page.register_an_account("pyTest","Framework",f"new{self.generate_random_email_with_timestamp()}@gmail.com",unique_number,"Pass@1234","Pass@1234","no","select")
-
-        '''register_page.enter_first_name("pyTest")
-        register_page.enter_last_name("Framework")
-        register_page.enter_email(f"new{self.generate_random_email_with_timestamp()}@gmail.com")
-        register_page.enter_phone_number(unique_number)
-        register_page.enter_password("Pass@1234")
-        register_page.enter_confirm_password("Pass@1234")
-        register_page.click_terms_and_condition_check_box()
-        time.sleep(3)
-        register_page.click_on_submit_button()'''
+        unique_number = str(RandomDataGenerator.random_phone_number())
+        register_page.register_an_account(RandomDataGenerator.random_first_name(),RandomDataGenerator.random_last_name(),f"new{self.generate_random_email_with_timestamp()}@gmail.com",unique_number,"Pass@1234","Pass@1234","no","select")
         expt_text = "Your Account Has Been Created!"
         assert register_page.verify_account_creation(expt_text)
 
@@ -33,19 +21,8 @@ class TestRegister:
         home_page = HomePage(self.driver)
         home_page.click_on_my_account_drop_down_menu()
         register_page = home_page.select_register_option()
-        unique_number = str(random.randint(1111111111, 9999999999))
-        register_page.register_an_account("pyTest","Framework",f"new{self.generate_random_email_with_timestamp()}@gmail.com",unique_number,"Pass@1234","Pass@1234","yes","select")
-
-        '''register_page.enter_first_name("pyTest")
-        register_page.enter_last_name("Framework")
-        register_page.enter_email(f"new{self.generate_random_email_with_timestamp()}@gmail.com")
-        register_page.enter_phone_number(unique_number)
-        register_page.enter_password("Pass@1234")
-        register_page.enter_confirm_password("Pass@1234")
-        register_page.click_on_newsletter_yes_option()
-        register_page.click_terms_and_condition_check_box()
-        time.sleep(3)
-        register_page.click_on_submit_button()'''
+        unique_number = str(RandomDataGenerator.random_phone_number())
+        register_page.register_an_account(RandomDataGenerator.random_first_name(),RandomDataGenerator.random_last_name(),f"new{self.generate_random_email_with_timestamp()}@gmail.com",unique_number,"Pass@1234","Pass@1234","yes","select")
         expt_text = "Your Account Has Been Created!"
         assert register_page.verify_account_creation(expt_text)
 
@@ -54,10 +31,10 @@ class TestRegister:
         home_page.click_on_my_account_drop_down_menu()
         register_page = home_page.select_register_option()
 
-        register_page.enter_first_name("pyTest")
-        register_page.enter_last_name("Framework")
+        register_page.enter_first_name(RandomDataGenerator.random_first_name())
+        register_page.enter_last_name(RandomDataGenerator.random_last_name())
         register_page.enter_email("cucu@gmail.com")
-        unique_number = str(random.randint(1111111111, 9999999999))
+        unique_number = str(RandomDataGenerator.random_phone_number())
         register_page.enter_phone_number(unique_number)
         register_page.enter_password("Pass@1234")
         register_page.enter_confirm_password("Pass@1234")
